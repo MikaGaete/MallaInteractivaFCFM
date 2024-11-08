@@ -1,0 +1,81 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["views"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Career {
+  id                   Int                    @id @default(autoincrement())
+  name                 String                 @unique @db.VarChar(100)
+  short                String                 @unique
+  LinkCategoryToCareer LinkCategoryToCareer[]
+}
+
+model Category {
+  id                   String                 @id @db.VarChar(100)
+  name                 String                 @db.VarChar(100)
+  color                String                 @db.VarChar(6)
+  Course               Course[]
+  LinkCategoryToCareer LinkCategoryToCareer[]
+}
+
+model Course {
+  id           String         @id @db.VarChar(13)
+  name         String         @db.VarChar(100)
+  credits      Int            @db.UnsignedTinyInt
+  semester     Int            @db.UnsignedTinyInt
+  categoryId   String
+  Category     Category       @relation(fields: [categoryId], references: [id])
+  ItSelf       PreRequisite[] @relation("OriginalCourse")
+  PreRequisite PreRequisite[] @relation("PreRequisiteCourse")
+
+  @@index([categoryId], map: "Course_categoryId_fkey")
+}
+
+model PreRequisite {
+  id          Int    @id @default(autoincrement())
+  courseId    String @db.VarChar(100)
+  preCourseId String @db.VarChar(100)
+  Course      Course @relation("OriginalCourse", fields: [courseId], references: [id])
+  PreCourse   Course @relation("PreRequisiteCourse", fields: [preCourseId], references: [id])
+
+  @@index([courseId], map: "PreRequisite_courseId_fkey")
+  @@index([preCourseId], map: "PreRequisite_preCourseId_fkey")
+}
+
+model LinkCategoryToCareer {
+  id         Int      @id @default(autoincrement())
+  careerId   Int
+  categoryId String
+  Career     Career   @relation(fields: [careerId], references: [id])
+  Category   Category @relation(fields: [categoryId], references: [id])
+
+  @@index([careerId], map: "LinkCategoryToCareer_careerId_fkey")
+  @@index([categoryId], map: "LinkCategoryToCareer_categoryId_fkey")
+}
+
+view GroupedPreRequisites {
+  courseId      String  @unique @db.VarChar(100)
+  PreRequisites String? @db.Text
+}
+
+view FullCareer {
+  short         String
+  id            String  @unique @db.VarChar(13)
+  name          String  @db.VarChar(100)
+  credits       Int     @db.UnsignedTinyInt
+  semester      Int     @db.UnsignedTinyInt
+  PreRequisites String? @db.Text
+  color         String  @db.VarChar(6)
+}
+
+view Categories {
+  categoryId String @unique
+  short      String
+  name       String @db.VarChar(100)
+  color      String @db.VarChar(6)
+}
