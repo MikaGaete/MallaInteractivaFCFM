@@ -10,7 +10,7 @@ export const NavigationCard = ({short, name}) => {
     }
 
     return (
-        <button key={short} className={'w-full bg-gradient-to-r from-[#60b6f1] to-[#5257e5] h-[20vh] text-2xl font-semibold rounded-xl text-white text-center'}
+        <button key={short} className={'w-full bg-gradient-to-r from-[#60b6f1] to-[#5257e5] h-[20vh] text-2xl font-semibold rounded-xl text-white text-center p-4'}
                 onClick={handleClick} value={short}>{name}</button>
     )
 }

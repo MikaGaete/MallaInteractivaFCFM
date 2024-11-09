@@ -23,7 +23,7 @@ export const Landing = () => {
         <div className={'w-full h-screen bg-[#F3F3F3] flex flex-col items-center gap-4'}>
             <div className={'w-[90%] md:w-[70%] flex flex-col gap-16 items-center m-16'}>
                 <h1 className={'text-center font-semibold text-4xl'}>Seleccione la carrera que desea revisar</h1>
-                <div className={'w-full grid grid-cols-3 gap-4'}>
+                <div className={'w-full grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4'}>
                     {careers.map((career) => <NavigationCard key={career.id} {...career}/>)}
                 </div>
             </div>

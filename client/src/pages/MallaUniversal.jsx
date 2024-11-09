@@ -29,15 +29,15 @@ export const MallaUniversal = () => {
 
     return (
         <div className={'w-[100vw] min-h-screen flex flex-col items-center py-8 gap-8'}>
-            <h1 className={'text-4xl font-medium'}>{name}</h1>
+            <h1 className={'text-xl md:text-4xl font-medium'}>{name}</h1>
             {semesters.length !== 0 && <div className={'w-full flex gap-4 overflow-x-auto px-8'}>
                 {semesters.map((semester, index) => <SemesterColumn key={index} semester={index + 1} courses={semester}/>)}
             </div>}
-            <div className={'flex gap-4'}>
+            <div className={'flex flex-col items-center gap-2 md:flex-row md:gap-4'}>
                 <p className={'text-xl font-semibold'}>Cursos Aprobados: {approved[specialty]?.length ?? 0}</p>
                 <p className={'text-xl font-semibold'}>Creditos Aprobados: {credits[specialty] ?? 0}</p>
             </div>
-            {categories.length !== 0 && <div className={'grid grid-cols-5 gap-4 px-8'}>
+            {categories.length !== 0 && <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 px-8'}>
                 {categories.map((category, index) => <CategoryCard key={index} {...category} />)}
                 <CategoryCard name={'Pre Requisito'} color={'6EEB83'}/>
             </div>}

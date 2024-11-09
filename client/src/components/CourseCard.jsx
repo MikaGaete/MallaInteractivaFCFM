@@ -51,7 +51,7 @@ export const CourseCard = ({id, name, credits, PreRequisites, color}) => {
     return (
         <div className={'flex flex-col justify-center items-center'} onClick={handleClick} {...hoverProps}>
             {approve && <div className={`${approve && '-m-1.5'} rotate-[155deg] bg-[#9a031e] h-3 relative top-[50%] w-full`}/>}
-            <Card className={`${highlight ? 'bg-[#6eeb83]' : `bg-[#${color}]`} ${!unlock && 'brightness-50'} w-full cursor-pointer -z-50`}>
+            <Card className={`${highlight ? 'bg-[#6eeb83]' : `bg-[#${color}]`} ${!unlock && 'brightness-50'} w-full cursor-pointer -z-50 text-sm md:text-medium lg:text-lg`}>
                 <CardHeader>
                     <h1>{id}</h1>
                 </CardHeader>
